@@ -5,15 +5,53 @@
  */
 
 using System;
+using System.Threading;
 
 namespace CommandLineGames
 {
-    public class InData
+    public static class InData
     {
-        public static string GetString(string message)
+        public static char GetChar(string message)
         {
             Console.WriteLine(message);
-            return Console.ReadLine();
+            return Console.ReadKey().KeyChar;
+        }
+    }
+
+    public static class InDataSnake
+    {
+        internal static int GetInput(int lastInput)
+        {
+            /*while (!Console.KeyAvailable)
+            {
+                Thread.Sleep(1000);
+                return lastInput;
+            }*/
+            
+            int direction = lastInput;
+            ConsoleKeyInfo newDirection = Console.ReadKey();
+            
+            switch (newDirection.Key)
+            {
+                case ConsoleKey.RightArrow:
+                    direction = 1; //right
+                    break;
+                case ConsoleKey.LeftArrow:
+                    direction = 2; //left
+                    break;
+                case ConsoleKey.UpArrow:
+                    direction = 3; //up
+                    break;
+                case ConsoleKey.DownArrow:
+                    direction = 4; //down
+                    break;
+            }
+
+            if (lastInput == 1 && direction == 2 || lastInput == 2 && direction == 1 ||
+                lastInput == 3 && direction == 4 || lastInput == 4 && direction == 3) 
+                return lastInput;
+
+            return direction;
         }
     }
 }

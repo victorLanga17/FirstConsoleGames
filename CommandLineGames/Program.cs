@@ -19,7 +19,8 @@ namespace CommandLineGames
         private void Start()
         {
             bool end = false;
-            
+
+            Console.CursorVisible = true;
             Console.Title = "Command Line Games by Victor Langa";
             if (OperatingSystem.IsWindows())
                 Console.SetWindowSize(100, 50);
@@ -40,10 +41,10 @@ namespace CommandLineGames
 
         private void ChooseOption(ref bool end)
         {
-            string option = InData.GetString("\n--- Introduce an option or press any other key to exit");
+            char option = InData.GetChar("\n--- Introduce an option or press any other key to exit");
             switch (option)
             {
-                case "1":
+                case '1':
                     ExecuteSnake();
                     break;
                 default:

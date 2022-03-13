@@ -15,19 +15,14 @@ namespace CommandLineGames
             bool end = false;
             do
             {
-                PrintTitleScreen();
+                OutDataSnake.PrintTitleScreen();
                 ChooseOption(ref end);
             } while (!end);
         }
 
-        private void PrintTitleScreen()
-        {
-            Console.WriteLine("");
-        }
-
         private void ChooseOption(ref bool end)
         {
-            int option = Convert.ToInt32(InData.GetString("PROVISIONAL 1, 2 o 3"));
+            int option = Convert.ToInt32(InData.GetChar("PROVISIONAL 1(Start), 2 o 3")) - 48;
             switch (option)
             {
                 case 1:
@@ -41,77 +36,119 @@ namespace CommandLineGames
             }
         }
 
-        private int ChooseLevelSize()
-        {
-            int levelSize = Convert.ToInt32(InData.GetString("PROVISIONAL 10, 20 o 30"));
-            return levelSize;
-        }
-
         private void SnakeGame(int levelSize)
         {
-            string[] snake = {"⏹", "⏹", "⏹"};
             int[,] snakePosition =
             {
-                {0, 0},
-                {0, 1},
-                {0, 2}
-            } ;
+                {0 + 2 * levelSize / 10, 0},
+                {1 + 2 * levelSize / 10, 0},
+                {2 + 2 * levelSize / 10, 0}
+            };
+            int[] objectivePosition = GenerateObjective(snakePosition, levelSize);
+            int counter = 0;
+            bool pointThisTurn = false;
+            int direction = 2;
             bool endOfTheGame = false;
             
             SnakeStart(levelSize);
+            
             do
             {
-                // GenerateObjective()
-                // GetInput()
-                // MoveSnake()
-                // CheckIfEnd()
+                if (objectivePosition[0] == snakePosition[0, 0] && objectivePosition[1] == snakePosition[0, 1])
+                {
+                    objectivePosition = GenerateObjective(snakePosition, levelSize);
+                    counter++;
+                    pointThisTurn = true;
+                    snakePosition = ResizeSnake(snakePosition);
+                }
+                
+                direction = InDataSnake.GetInput(direction);
+                MoveSnake(snakePosition, direction, ref pointThisTurn);
+                CheckIfEnd(counter, levelSize, ref endOfTheGame, snakePosition);
                 
             } while (!endOfTheGame);
+        }
+        
+        private int ChooseLevelSize()
+        {
+            int levelSize = (Convert.ToInt32(InData.GetChar("PROVISIONAL LEVELSIZE 1(10x10), (2)20x20 o (3)30x30"))-48) * 10;
+            return levelSize;
         }
 
         private void SnakeStart(int levelSize)
         {
-            PrintLevel(levelSize);
-            PrintInitialPosition(levelSize);
+            OutDataSnake.PrintLevel(levelSize);
+            OutDataSnake.PrintInitialPosition(levelSize);
+        }
+        
+        private int[] GenerateObjective(int[,] snakePosition, int levelSize)
+        {
+            var randomPosition = new Random();
+            int[] objectivePosition;
+            do
+            {
+                objectivePosition = new [] {randomPosition.Next(levelSize/-2 + 1, levelSize/2),
+                    randomPosition.Next(levelSize/-2 + 1, levelSize/2)};
+            } while (!CheckIfPositionIsFree(objectivePosition, snakePosition));
+
+            OutDataSnake.PrintNewObjective(objectivePosition);
+
+            return objectivePosition;
+        }
+        
+        private int[,] ResizeSnake(int[,] snakePosition)
+        {
+            int[,] newSnakePosition = new int[snakePosition.GetLength(0) + 1, 2];
+            
+            for (int i = 0; i < snakePosition.GetLength(0); i++)
+            for (int j = 0; j < snakePosition.GetLength(1); j++)
+            {
+                newSnakePosition[i, j] = snakePosition[i, j];
+            }
+
+            return newSnakePosition;
         }
 
-        private void PrintLevel(int levelSize)
+        private void MoveSnake(int[,] snakePosition, int direction, ref bool pointThisTurn)
         {
-            Console.SetCursorPosition(Console.WindowWidth/2 - levelSize, Console.WindowHeight/2 - levelSize/2);
+            int[] posToDelete = {snakePosition[snakePosition.GetLength(0) - 1, 0], 
+                snakePosition[snakePosition.GetLength(0) - 1, 1]};
 
-            for (int i = 0; i < 2; i++)
+            for (int i = snakePosition.GetLength(0) - 1; i > 0; i--)
             {
-                
-                int leftOrRight = 1; // right = 1, left = -3
-                if (i == 1) leftOrRight = -3;
-                for (int j = 0; j < levelSize; j++)
-                {
-                    Console.Write("▀");
-                    Console.SetCursorPosition(Console.CursorLeft + leftOrRight, Console.CursorTop);
-                }
-
-                int topOrBottom = 1; // top = -1, bottom = 1
-                if (i == 1) topOrBottom = -1;
-                for (int k = 0; k < levelSize; k++)
-                {
-                    Console.Write("▀");
-                    Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop + topOrBottom);
-                }
+                snakePosition[i, 0] = snakePosition[i - 1, 0];
+                snakePosition[i, 1] = snakePosition[i - 1, 1];
             }
+
+            // 1 = right, 2 = left, 3 = up, 4 = down
+            if (direction == 1) snakePosition[0, 0]++;
+            else if (direction == 2) snakePosition[0, 0]--;
+            else if (direction == 3) snakePosition[0, 1]--;
+            else snakePosition[0, 1]++;
+            
+            OutDataSnake.PrintNewTurn(ref pointThisTurn, snakePosition, posToDelete);
+        }
+        
+        private void CheckIfEnd(int counter, int levelSize, ref bool endOfTheGame, int[,] snakePosition)
+        {
+            for (int i = 1; i < snakePosition.GetLength(0); i++)
+                if (snakePosition[0, 0] == snakePosition[i, 0] && snakePosition[0, 1] == snakePosition[i, 1])
+                    endOfTheGame = true;
+            if (snakePosition[0, 0] == levelSize / -2 || snakePosition[0, 0] == levelSize / 2 ||
+                snakePosition[0, 1] == levelSize / -2 || snakePosition[0, 1] == levelSize / 2)
+                endOfTheGame = true;
+            if (counter == (int) Math.Pow(levelSize - 1, 2)) endOfTheGame = true;
         }
 
-        private void PrintInitialPosition(int levelSize)
+        private bool CheckIfPositionIsFree(int[] objectivePosition, int[,] snakePosition)
         {
-            Console.SetCursorPosition(Console.WindowWidth/2 + 4 * (levelSize / 10) /*I like this start*/,
-                Console.WindowHeight/2);
+            bool isPositionFree = true;
 
-            Console.ForegroundColor = ConsoleColor.Green;
-            for (int i = 0; i < 3 /*= Length of the snake at the start*/; i++)
-            {
-                Console.Write("▀");
-                Console.SetCursorPosition(Console.CursorLeft + 1, Console.CursorTop);
-            }
-            Console.ResetColor();
+            for (int i = 0; i < snakePosition.GetLength(0) && isPositionFree; i++)
+                if (objectivePosition[0] == snakePosition[i, 0] && objectivePosition[1] == snakePosition[i, 1])
+                    isPositionFree = false;
+
+            return isPositionFree;
         }
     }
 }
