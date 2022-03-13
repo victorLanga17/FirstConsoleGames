@@ -19,6 +19,11 @@ namespace CommandLineGames
         private void Start()
         {
             bool end = false;
+            
+            Console.Title = "Command Line Games by Victor Langa";
+            if (OperatingSystem.IsWindows())
+                Console.SetWindowSize(100, 50);
+            
             do
             {
                 PrintMenu();
@@ -28,15 +33,18 @@ namespace CommandLineGames
 
         private void PrintMenu()
         {
-            Console.WriteLine("");
+            Console.WriteLine("Command Line Games");
+            Console.WriteLine("By Victor Langa");
+            Console.WriteLine("\n   [1] Snake");
         }
 
         private void ChooseOption(ref bool end)
         {
-            string option = InData.GetString("--- Introduce an option or press any other key to exit");
+            string option = InData.GetString("\n--- Introduce an option or press any other key to exit");
             switch (option)
             {
                 case "1":
+                    ExecuteSnake();
                     break;
                 default:
                     end = true;
@@ -44,8 +52,10 @@ namespace CommandLineGames
             }
         }
 
-        
-        
-        
+        private void ExecuteSnake()
+        {
+            var snakeGame = new Snake();
+            snakeGame.MenuSnake();
+        }
     }
 }
