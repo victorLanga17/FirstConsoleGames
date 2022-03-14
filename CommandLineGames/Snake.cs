@@ -34,13 +34,14 @@ namespace CommandLineGames
 
         private void ChooseOption(ref bool end)
         {
-            int option = Convert.ToInt32(InData.GetChar("PROVISIONAL 1(Start), 2 o 3")) - 48;
+            int option = Convert.ToInt32(InData.GetChar("")) - 48;
             switch (option)
             {
                 case 1:
                     SnakeGame(ChooseLevelSize());
                     break;
                 case 2:
+                    OutDataSnake.PrintInstructions();
                     break;
                 default:
                     end = true;
@@ -50,6 +51,9 @@ namespace CommandLineGames
 
         private void SnakeGame(int levelSize)
         {
+            Console.Clear();
+            ExternalSources.AsciiElements.PrintSnakeTitle();
+            
             int[,] snakePosition =
             {
                 {0 + 2 * levelSize / 10, 0},
@@ -61,9 +65,9 @@ namespace CommandLineGames
             bool pointThisTurn = false;
             int direction = 2;
             bool endOfTheGame = false;
+            bool isVictory;
             
-            SetConsoleParametersSnake();
-            SnakeStart(levelSize);
+            StartSnake(levelSize);
             
             do
             {
@@ -71,26 +75,30 @@ namespace CommandLineGames
                 {
                     objectivePosition = GenerateObjective(snakePosition, levelSize);
                     counter++;
+                    OutDataSnake.PrintScore(counter);
                     pointThisTurn = true;
                     snakePosition = ResizeSnake(snakePosition);
                 }
                 
                 direction = InDataSnake.GetInput(direction);
                 MoveSnake(snakePosition, direction, ref pointThisTurn);
-                CheckIfEnd(counter, levelSize, ref endOfTheGame, snakePosition);
-                SetConsoleParametersSnake();
+                isVictory = CheckIfEnd(counter, levelSize, ref endOfTheGame, snakePosition);
                 
             } while (!endOfTheGame);
+
+            OutDataSnake.EndScreen(isVictory, counter);
         }
         
         private int ChooseLevelSize()
         {
-            int levelSize = (Convert.ToInt32(InData.GetChar("PROVISIONAL LEVELSIZE 1(10x10), (2)20x20 o (3)30x30"))-48) * 10;
+            OutDataSnake.PrintChooseDifficulty();
+            int levelSize = (Convert.ToInt32(InData.GetChar(""))-48) * 10;
             return levelSize;
         }
 
-        private void SnakeStart(int levelSize)
+        private void StartSnake(int levelSize)
         {
+            OutDataSnake.PrintScore(0);
             OutDataSnake.PrintLevel(levelSize);
             OutDataSnake.PrintInitialPosition(levelSize);
         }
@@ -115,11 +123,9 @@ namespace CommandLineGames
             int[,] newSnakePosition = new int[snakePosition.GetLength(0) + 1, 2];
             
             for (int i = 0; i < snakePosition.GetLength(0); i++)
-            for (int j = 0; j < snakePosition.GetLength(1); j++)
-            {
-                newSnakePosition[i, j] = snakePosition[i, j];
-            }
-
+                for (int j = 0; j < snakePosition.GetLength(1); j++)
+                    newSnakePosition[i, j] = snakePosition[i, j];
+            
             return newSnakePosition;
         }
 
@@ -143,15 +149,23 @@ namespace CommandLineGames
             OutDataSnake.PrintNewTurn(ref pointThisTurn, snakePosition, posToDelete);
         }
         
-        private void CheckIfEnd(int counter, int levelSize, ref bool endOfTheGame, int[,] snakePosition)
+        private bool CheckIfEnd(int counter, int levelSize, ref bool endOfTheGame, int[,] snakePosition)
         {
+            if (counter == (int) Math.Pow(levelSize - 1, 2) - 3)
+            {
+                endOfTheGame = true;
+                return true;
+            }
+            
             for (int i = 1; i < snakePosition.GetLength(0); i++)
                 if (snakePosition[0, 0] == snakePosition[i, 0] && snakePosition[0, 1] == snakePosition[i, 1])
                     endOfTheGame = true;
+            
             if (snakePosition[0, 0] == levelSize / -2 || snakePosition[0, 0] == levelSize / 2 ||
                 snakePosition[0, 1] == levelSize / -2 || snakePosition[0, 1] == levelSize / 2)
                 endOfTheGame = true;
-            if (counter == (int) Math.Pow(levelSize - 1, 2)) endOfTheGame = true;
+            
+            return false;
         }
 
         private bool CheckIfPositionIsFree(int[] objectivePosition, int[,] snakePosition)

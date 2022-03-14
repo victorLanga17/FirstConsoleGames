@@ -14,7 +14,7 @@ namespace CommandLineGames
         {
             Console.CursorVisible = false;
             Console.Title = "Command Line Games by Victor Langa";
-            ExternalSourcesCode.DisableConsoleResize.SetDisableResize();
+            ExternalSources.DisableConsoleResize.SetDisableResize();
             
             var program = new Program();
             program.Start();
@@ -54,8 +54,10 @@ namespace CommandLineGames
 
         private void ExecuteSnake()
         {
+            Console.Clear();
             var snakeGame = new Snake();
             snakeGame.MenuSnake();
+            Console.Clear();
         }
     }
 }

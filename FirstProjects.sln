@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLineGames", "CommandLineGames\CommandLineGames.csproj", "{8475EC41-D836-4BE4-8D7C-61E2EC88A60D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalSourcesCode", "ExternalSourcesCode\ExternalSourcesCode.csproj", "{B3F7C204-86F1-4203-9164-CF3F3E1FDD63}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalSources", "ExternalSources\ExternalSources.csproj", "{B3F7C204-86F1-4203-9164-CF3F3E1FDD63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

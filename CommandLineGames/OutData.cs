@@ -12,7 +12,54 @@ namespace CommandLineGames
     {
         internal static void PrintTitleScreen()
         {
-            Console.WriteLine("");
+            ExternalSources.AsciiElements.PrintSnakeTitle();
+            
+            Console.WriteLine("\n\n\n\n                               Choose an option:");
+            Console.WriteLine("\n                                     1. Play");
+            Console.WriteLine("\n                                     2. Instructions");
+            Console.WriteLine("\n                                     3. Exit\n\n\n\n\n\n");
+            
+            ExternalSources.AsciiElements.PrintSnakeDrawing();
+        }
+
+        internal static void PrintInstructions()
+        {
+            Console.Clear();
+            ExternalSources.AsciiElements.PrintSnakeTitle();
+            
+            Console.SetCursorPosition(Console.WindowWidth / 2 - Console.WindowWidth / 5, Console.CursorTop + 9);
+            Console.WriteLine("Press the arrow keys to move the snake\n");
+            Console.SetCursorPosition(Console.WindowWidth / 2 - Console.WindowWidth / 5, Console.CursorTop);
+            Console.WriteLine("Eat the red apples to score one point\n");
+            Console.SetCursorPosition(Console.WindowWidth / 2 - Console.WindowWidth / 5, Console.CursorTop);
+            Console.WriteLine("Do not crash into the walls or yourself!\n");
+            Console.SetCursorPosition(Console.WindowWidth / 2 - Console.WindowWidth / 6, 
+                Console.WindowHeight / 2 + Console.WindowHeight / 3);
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+        internal static void PrintChooseDifficulty()
+        {
+            Console.Clear();
+            ExternalSources.AsciiElements.PrintSnakeTitle();
+            
+            Console.WriteLine("\n\n\n\n                               Choose a difficulty:");
+            Console.WriteLine("\n                                     1. Easy");
+            Console.WriteLine("\n                                     2. Medium");
+            Console.WriteLine("\n                                     3. Hard\n\n\n\n\n\n");
+            
+            ExternalSources.AsciiElements.PrintSnakeDrawing();
+        }
+
+        internal static void PrintScore(int counter)
+        {
+            Console.SetCursorPosition(Console.WindowWidth - 20, Console.WindowHeight - 6);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("Score: ");
+            Console.ResetColor();
+            Console.Write(counter);
         }
         
         internal static void PrintLevel(int levelSize)
@@ -65,12 +112,6 @@ namespace CommandLineGames
         
         internal static void PrintNewTurn(ref bool pointThisTurn, int[,] snakePosition, int[] posToDelete)
         {
-            Console.SetCursorPosition(Console.WindowWidth/2 + snakePosition[0, 0] * 2, 
-                Console.WindowHeight/2 + snakePosition[0, 1]);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("▀");
-            Console.ResetColor();
-
             if (!pointThisTurn)
             {
                 Console.SetCursorPosition(Console.WindowWidth / 2 + posToDelete[0] * 2,
@@ -78,6 +119,38 @@ namespace CommandLineGames
                 Console.WriteLine(" ");
             }
             else pointThisTurn = false;
+            
+            Console.SetCursorPosition(Console.WindowWidth/2 + snakePosition[0, 0] * 2, 
+                Console.WindowHeight/2 + snakePosition[0, 1]);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("▀");
+            Console.ResetColor();
+        }
+        
+        internal static void EndScreen(bool isVictory, int counter)
+        {
+            Console.Clear();
+            Console.SetCursorPosition(0, Console.WindowHeight / 2 - Console.WindowHeight / 3);
+            if (isVictory) ExternalSources.AsciiElements.PrintSnakeVictory();
+            else
+            {
+                ExternalSources.AsciiElements.PrintSnakeDefeat();
+                Console.SetCursorPosition(Console.WindowWidth / 2 - Console.WindowWidth / 4 + 5, 
+                    Console.WindowHeight / 2);
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                if (counter == 0) Console.WriteLine("The snake couldn't eat any apple");
+                else
+                {
+                    Console.Write("The snake could just eat {0} apple", counter);
+                    if (counter > 1) Console.Write("s");
+                }
+                Console.ResetColor();
+            }
+            Console.SetCursorPosition(Console.WindowWidth / 2 - Console.WindowWidth / 4,
+                    Console.WindowHeight / 2 + Console.WindowHeight / 3);
+            Console.WriteLine("Press any key to return to the title screen");
+            Console.ReadKey();
+            Console.Clear();
         }
     }
 }

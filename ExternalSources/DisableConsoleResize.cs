@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace ExternalSourcesCode
+namespace ExternalSources
 {
     public class DisableConsoleResize
     {
