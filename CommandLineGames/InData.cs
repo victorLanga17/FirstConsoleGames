@@ -20,6 +20,31 @@ namespace CommandLineGames
 
     public static class InDataSnake
     {
+        internal static int GetMenuOption()
+        {
+            int option = 1;
+            bool end = false;
+
+            while (!end)
+            {
+                OutDataSnake.PrintMenuCursor(option);
+                var input = Console.ReadKey();
+                if (input.Key == ConsoleKey.UpArrow)
+                {
+                    if (option == 1) option = 3;
+                    else option--;
+                }
+                else if (input.Key == ConsoleKey.DownArrow)
+                {
+                    if (option == 3) option = 1;
+                    else option++;
+                }
+                else if (input.Key == ConsoleKey.Enter) end = true;
+            }
+
+            return option;
+        }
+        
         internal static int GetInput(int lastInput)
         { 
             Thread.Sleep(1000);

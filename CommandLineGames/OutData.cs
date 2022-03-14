@@ -15,13 +15,32 @@ namespace CommandLineGames
             ExternalSources.AsciiElements.PrintSnakeTitle();
             
             Console.WriteLine("\n\n\n\n                               Choose an option:");
-            Console.WriteLine("\n                                     1. Play");
-            Console.WriteLine("\n                                     2. Instructions");
-            Console.WriteLine("\n                                     3. Exit\n\n\n\n\n\n");
+            Console.WriteLine("\n                                        Play");
+            Console.WriteLine("\n                                        Instructions");
+            Console.WriteLine("\n                                        Exit\n\n\n\n\n\n");
             
             ExternalSources.AsciiElements.PrintSnakeDrawing();
         }
 
+        internal static void PrintMenuCursor(int option)
+        {
+            int topPosition;
+            if (option == 1) topPosition = 15;
+            else if (option == 2) topPosition = 17;
+            else topPosition = 19;
+
+            for (int i = 0; i < 3; i++)
+            {
+                Console.SetCursorPosition(35, 15 + 2 * i);
+                Console.Write(" ");
+            }
+            
+            Console.SetCursorPosition(35, topPosition);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write(">");
+            Console.ResetColor();
+        }
+        
         internal static void PrintInstructions()
         {
             Console.Clear();
@@ -46,9 +65,9 @@ namespace CommandLineGames
             ExternalSources.AsciiElements.PrintSnakeTitle();
             
             Console.WriteLine("\n\n\n\n                               Choose a difficulty:");
-            Console.WriteLine("\n                                     1. Easy");
-            Console.WriteLine("\n                                     2. Medium");
-            Console.WriteLine("\n                                     3. Hard\n\n\n\n\n\n");
+            Console.WriteLine("\n                                        Easy");
+            Console.WriteLine("\n                                        Medium");
+            Console.WriteLine("\n                                        Hard\n\n\n\n\n\n");
             
             ExternalSources.AsciiElements.PrintSnakeDrawing();
         }

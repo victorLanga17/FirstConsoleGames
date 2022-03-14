@@ -34,7 +34,7 @@ namespace CommandLineGames
 
         private void ChooseOption(ref bool end)
         {
-            int option = Convert.ToInt32(InData.GetChar("")) - 48;
+            int option = InDataSnake.GetMenuOption();
             switch (option)
             {
                 case 1:
@@ -92,7 +92,7 @@ namespace CommandLineGames
         private int ChooseLevelSize()
         {
             OutDataSnake.PrintChooseDifficulty();
-            int levelSize = (Convert.ToInt32(InData.GetChar(""))-48) * 10;
+            int levelSize = InDataSnake.GetMenuOption() * 10;
             return levelSize;
         }
 
