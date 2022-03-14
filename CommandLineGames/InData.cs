@@ -43,7 +43,7 @@ namespace CommandLineGames
             while (!end)
             {
                 OutDataSnake.PrintMenuCursor(option);
-                var input = Console.ReadKey();
+                var input = Console.ReadKey(true);
                 if (input.Key == ConsoleKey.UpArrow)
                 {
                     if (option == 1) option = 3;
