@@ -72,7 +72,7 @@ namespace CommandLineGames
             while (!Console.KeyAvailable) return lastInput;
 
             int direction = lastInput;
-            ConsoleKeyInfo newDirection = Console.ReadKey();
+            ConsoleKeyInfo newDirection = Console.ReadKey(true);
             
             switch (newDirection.Key)
             {
@@ -90,7 +90,7 @@ namespace CommandLineGames
                     break;
             }
 
-            while (Console.KeyAvailable) Console.ReadKey(false);
+            while (Console.KeyAvailable) Console.ReadKey(true);
             
             if (lastInput == 1 && direction == 2 || lastInput == 2 && direction == 1 ||
                 lastInput == 3 && direction == 4 || lastInput == 4 && direction == 3) 
