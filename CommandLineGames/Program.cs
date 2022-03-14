@@ -12,6 +12,10 @@ namespace CommandLineGames
     {
         static void Main()
         {
+            Console.CursorVisible = false;
+            Console.Title = "Command Line Games by Victor Langa";
+            ExternalSourcesCode.DisableConsoleResize.SetDisableResize();
+            
             var program = new Program();
             program.Start();
         }
@@ -20,11 +24,6 @@ namespace CommandLineGames
         {
             bool end = false;
 
-            Console.CursorVisible = true;
-            Console.Title = "Command Line Games by Victor Langa";
-            if (OperatingSystem.IsWindows())
-                Console.SetWindowSize(100, 50);
-            
             do
             {
                 PrintMenu();

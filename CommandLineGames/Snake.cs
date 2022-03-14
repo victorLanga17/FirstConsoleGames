@@ -12,12 +12,24 @@ namespace CommandLineGames
     {
         internal void MenuSnake()
         {
+            SetConsoleParametersSnake();
+            
             bool end = false;
             do
             {
                 OutDataSnake.PrintTitleScreen();
                 ChooseOption(ref end);
             } while (!end);
+        }
+
+        private void SetConsoleParametersSnake()
+        {
+            if (OperatingSystem.IsWindows())
+            {
+                Console.SetWindowSize(100, 50);
+                Console.BufferWidth = 100;
+                Console.BufferHeight = 50;
+            }
         }
 
         private void ChooseOption(ref bool end)
@@ -50,6 +62,7 @@ namespace CommandLineGames
             int direction = 2;
             bool endOfTheGame = false;
             
+            SetConsoleParametersSnake();
             SnakeStart(levelSize);
             
             do
@@ -65,6 +78,7 @@ namespace CommandLineGames
                 direction = InDataSnake.GetInput(direction);
                 MoveSnake(snakePosition, direction, ref pointThisTurn);
                 CheckIfEnd(counter, levelSize, ref endOfTheGame, snakePosition);
+                SetConsoleParametersSnake();
                 
             } while (!endOfTheGame);
         }
