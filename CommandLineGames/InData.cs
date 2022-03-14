@@ -21,13 +21,11 @@ namespace CommandLineGames
     public static class InDataSnake
     {
         internal static int GetInput(int lastInput)
-        {
-            /*while (!Console.KeyAvailable)
-            {
-                Thread.Sleep(1000);
-                return lastInput;
-            }*/
+        { 
+            Thread.Sleep(1000);
             
+            while (!Console.KeyAvailable) return lastInput;
+
             int direction = lastInput;
             ConsoleKeyInfo newDirection = Console.ReadKey();
             
@@ -47,6 +45,8 @@ namespace CommandLineGames
                     break;
             }
 
+            while (Console.KeyAvailable) Console.ReadKey(false);
+            
             if (lastInput == 1 && direction == 2 || lastInput == 2 && direction == 1 ||
                 lastInput == 3 && direction == 4 || lastInput == 4 && direction == 3) 
                 return lastInput;
