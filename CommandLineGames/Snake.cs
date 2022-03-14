@@ -8,8 +8,14 @@ using System;
 
 namespace CommandLineGames
 {
+    /// <summary>
+    /// Class with the methods of the game Snake
+    /// </summary>
     internal class Snake
     {
+        /// <summary>
+        /// Method where the Snake program loop starts
+        /// </summary>
         internal void MenuSnake()
         {
             SetConsoleParametersSnake();
@@ -22,6 +28,9 @@ namespace CommandLineGames
             } while (!end);
         }
 
+        /// <summary>
+        /// Method to adjust the console parameters to the Snake game
+        /// </summary>
         private void SetConsoleParametersSnake()
         {
             if (OperatingSystem.IsWindows())
@@ -32,6 +41,10 @@ namespace CommandLineGames
             }
         }
 
+        /// <summary>
+        /// Method that goes to an option chosen from the main menu
+        /// </summary>
+        /// <param name="end">Boolean that determines if the program must end</param>
         private void ChooseOption(ref bool end)
         {
             int option = InDataSnake.GetMenuOption();
@@ -48,7 +61,22 @@ namespace CommandLineGames
                     break;
             }
         }
-
+        
+        /// <summary>
+        /// Method where the level of difficulty is chosen
+        /// </summary>
+        /// <returns>Int with the level size</returns>
+        private int ChooseLevelSize()
+        {
+            OutDataSnake.PrintChooseDifficulty();
+            int levelSize = InDataSnake.GetMenuOption() * 10;
+            return levelSize;
+        }
+        
+        /// <summary>
+        /// Method where the game Snake executes
+        /// </summary>
+        /// <param name="levelSize">Int with the level size chosen (relative to the difficulty option)</param>
         private void SnakeGame(int levelSize)
         {
             Console.Clear();
@@ -88,14 +116,11 @@ namespace CommandLineGames
 
             OutDataSnake.EndScreen(isVictory, counter);
         }
-        
-        private int ChooseLevelSize()
-        {
-            OutDataSnake.PrintChooseDifficulty();
-            int levelSize = InDataSnake.GetMenuOption() * 10;
-            return levelSize;
-        }
 
+        /// <summary>
+        /// Method where the output initialization is done
+        /// </summary>
+        /// <param name="levelSize">Int with the level size chosen (relative to the difficulty option)</param>
         private void StartSnake(int levelSize)
         {
             OutDataSnake.PrintScore(0);
@@ -103,6 +128,12 @@ namespace CommandLineGames
             OutDataSnake.PrintInitialPosition(levelSize);
         }
         
+        /// <summary>
+        /// Method where a new objective is generate when the current is taken or doesn't exist
+        /// </summary>
+        /// <param name="snakePosition">Integral matrix with the current snake position</param>
+        /// <param name="levelSize">Int with the level size chosen (relative to the difficulty option)</param>
+        /// <returns>Integer array with the new position</returns>
         private int[] GenerateObjective(int[,] snakePosition, int levelSize)
         {
             var randomPosition = new Random();
@@ -118,6 +149,11 @@ namespace CommandLineGames
             return objectivePosition;
         }
         
+        /// <summary>
+        /// Method that resizes the snake (adding one more length)
+        /// </summary>
+        /// <param name="snakePosition">Integral matrix with the current snake position</param>
+        /// <returns>Int matrix with the new length and position of the snake</returns>
         private int[,] ResizeSnake(int[,] snakePosition)
         {
             int[,] newSnakePosition = new int[snakePosition.GetLength(0) + 1, 2];
@@ -129,6 +165,12 @@ namespace CommandLineGames
             return newSnakePosition;
         }
 
+        /// <summary>
+        /// Method where the new positions occupied by the snake are determined when a turn ends
+        /// </summary>
+        /// <param name="snakePosition">Integral matrix with the current snake position</param>
+        /// <param name="direction">Int that represents the direction the snake is facing</param>
+        /// <param name="pointThisTurn">Boolean that shows if a point was taken during the turn analyzed</param>
         private void MoveSnake(int[,] snakePosition, int direction, ref bool pointThisTurn)
         {
             int[] posToDelete = {snakePosition[snakePosition.GetLength(0) - 1, 0], 
@@ -149,6 +191,14 @@ namespace CommandLineGames
             OutDataSnake.PrintNewTurn(ref pointThisTurn, snakePosition, posToDelete);
         }
         
+        /// <summary>
+        /// Method that checks every turn if the game shall end
+        /// </summary>
+        /// <param name="counter">Int with the score</param>
+        /// <param name="levelSize">Int with the level size chosen (relative to the difficulty option)</param>
+        /// <param name="endOfTheGame">Bool that determines if the game shall end</param>
+        /// <param name="snakePosition">Integral matrix with the current snake position</param>
+        /// <returns>Bool that determines if the game was won or lost</returns>
         private bool CheckIfEnd(int counter, int levelSize, ref bool endOfTheGame, int[,] snakePosition)
         {
             if (counter == (int) Math.Pow(levelSize - 1, 2) - 3)
@@ -168,6 +218,12 @@ namespace CommandLineGames
             return false;
         }
 
+        /// <summary>
+        /// Method that checks if the position isn't occupied by the snake to generate a new objective 
+        /// </summary>
+        /// <param name="objectivePosition">Integer array with the new position</param>
+        /// <param name="snakePosition">Integral matrix with the current snake position</param>
+        /// <returns>Bool that determines if the position is occupied or not</returns>
         private bool CheckIfPositionIsFree(int[] objectivePosition, int[,] snakePosition)
         {
             bool isPositionFree = true;

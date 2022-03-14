@@ -8,8 +8,14 @@ using System;
 
 namespace CommandLineGames
 {
+    /// <summary>
+    /// Class where are the output methods specific to the game Snake are managed
+    /// </summary>
     public static class OutDataSnake
     {
+        /// <summary>
+        /// Method that prints the title screen
+        /// </summary>
         internal static void PrintTitleScreen()
         {
             ExternalSources.AsciiElements.PrintSnakeTitle();
@@ -22,6 +28,10 @@ namespace CommandLineGames
             ExternalSources.AsciiElements.PrintSnakeDrawing();
         }
 
+        /// <summary>
+        /// Method that displays the menu cursor in the corresponding position
+        /// </summary>
+        /// <param name="option">Last option (or position) recorded before the method was executed</param>
         internal static void PrintMenuCursor(int option)
         {
             int topPosition;
@@ -41,6 +51,9 @@ namespace CommandLineGames
             Console.ResetColor();
         }
         
+        /// <summary>
+        /// Method that prints the instructions
+        /// </summary>
         internal static void PrintInstructions()
         {
             Console.Clear();
@@ -59,6 +72,9 @@ namespace CommandLineGames
             Console.Clear();
         }
 
+        /// <summary>
+        /// Method that prints the difficulty menu
+        /// </summary>
         internal static void PrintChooseDifficulty()
         {
             Console.Clear();
@@ -72,6 +88,10 @@ namespace CommandLineGames
             ExternalSources.AsciiElements.PrintSnakeDrawing();
         }
 
+        /// <summary>
+        /// Method that prints the score during the game
+        /// </summary>
+        /// <param name="counter">Int with the score</param>
         internal static void PrintScore(int counter)
         {
             Console.SetCursorPosition(Console.WindowWidth - 20, Console.WindowHeight - 6);
@@ -81,6 +101,10 @@ namespace CommandLineGames
             Console.Write(counter);
         }
         
+        /// <summary>
+        /// Method that prints the level or board
+        /// </summary>
+        /// <param name="levelSize">Int with the level size chosen (relative to the difficulty option)</param>
         internal static void PrintLevel(int levelSize)
         {
             Console.SetCursorPosition(Console.WindowWidth/2 - levelSize, Console.WindowHeight/2 - levelSize/2);
@@ -106,6 +130,10 @@ namespace CommandLineGames
             }
         }
         
+        /// <summary>
+        /// Method that prints the initial position of the snake
+        /// </summary>
+        /// <param name="levelSize">Int with the level size chosen (relative to the difficulty option)</param>
         internal static void PrintInitialPosition(int levelSize)
         {
             Console.SetCursorPosition(Console.WindowWidth/2 + 4 * (levelSize / 10) /*I like this start*/,
@@ -120,6 +148,10 @@ namespace CommandLineGames
             Console.ResetColor();
         }
         
+        /// <summary>
+        /// Method that prints a new objective
+        /// </summary>
+        /// <param name="objectivePosition">Integer array with the new position</param>
         internal static void PrintNewObjective(int[] objectivePosition)
         {
             Console.SetCursorPosition(Console.WindowWidth/2 + objectivePosition[0] * 2,
@@ -129,6 +161,12 @@ namespace CommandLineGames
             Console.ResetColor();
         }
         
+        /// <summary>
+        /// Method that prints the new position of the snake each turn
+        /// </summary>
+        /// <param name="pointThisTurn">Boolean that shows if a point was taken during the turn analyzed</param>
+        /// <param name="snakePosition">Integral matrix with the current snake position</param>
+        /// <param name="posToDelete">Integral array with the last position occupied by the snake</param>
         internal static void PrintNewTurn(ref bool pointThisTurn, int[,] snakePosition, int[] posToDelete)
         {
             if (!pointThisTurn)
@@ -146,6 +184,11 @@ namespace CommandLineGames
             Console.ResetColor();
         }
         
+        /// <summary>
+        /// Method that prints the end screen
+        /// </summary>
+        /// <param name="isVictory">Boolean that determines if the game was won or lost</param>
+        /// <param name="counter">Int with the score</param>
         internal static void EndScreen(bool isVictory, int counter)
         {
             Console.Clear();

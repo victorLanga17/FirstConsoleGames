@@ -9,8 +9,16 @@ using System.Threading;
 
 namespace CommandLineGames
 {
+    /// <summary>
+    /// Class where the main input methods are managed
+    /// </summary>
     public static class InData
     {
+        /// <summary>
+        /// Method that gets a char input and returns it
+        /// </summary>
+        /// <param name="message">Text that will be shown for the user</param>
+        /// <returns>Input char</returns>
         public static char GetChar(string message)
         {
             Console.WriteLine(message);
@@ -18,8 +26,15 @@ namespace CommandLineGames
         }
     }
 
+    /// <summary>
+    /// Class where the input methods exclusive to the game Snake are managed
+    /// </summary>
     public static class InDataSnake
     {
+        /// <summary>
+        /// Method that determines the option taken in the menu
+        /// </summary>
+        /// <returns>Int with the option taken</returns>
         internal static int GetMenuOption()
         {
             int option = 1;
@@ -45,9 +60,14 @@ namespace CommandLineGames
             return option;
         }
         
+        /// <summary>
+        /// Method that determines the next direction the snake will be facing during the game
+        /// </summary>
+        /// <param name="lastInput">Last input registered before the execution of the method</param>
+        /// <returns>Int that represents the direction of the snake</returns>
         internal static int GetInput(int lastInput)
         { 
-            Thread.Sleep(1000);
+            Thread.Sleep(600);
             
             while (!Console.KeyAvailable) return lastInput;
 

@@ -8,8 +8,14 @@ using System;
 
 namespace CommandLineGames
 {
+    /// <summary>
+    /// Class where the program starts working
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Main method where some console parameters are defined
+        /// </summary>
         static void Main()
         {
             Console.CursorVisible = false;
@@ -20,6 +26,9 @@ namespace CommandLineGames
             program.Start();
         }
 
+        /// <summary>
+        /// Method that starts the loop of the program
+        /// </summary>
         private void Start()
         {
             bool end = false;
@@ -31,6 +40,9 @@ namespace CommandLineGames
             } while (!end);
         }
 
+        /// <summary>
+        /// Method that prints the main menu
+        /// </summary>
         private void PrintMenu()
         {
             Console.WriteLine("Command Line Games");
@@ -38,6 +50,10 @@ namespace CommandLineGames
             Console.WriteLine("\n   [1] Snake");
         }
 
+        /// <summary>
+        /// Method to choose an option from the main menu
+        /// </summary>
+        /// <param name="end">Boolean that determains if the program shall end</param>
         private void ChooseOption(ref bool end)
         {
             char option = InData.GetChar("\n--- Introduce an option or press any other key to exit");
@@ -52,6 +68,9 @@ namespace CommandLineGames
             }
         }
 
+        /// <summary>
+        /// Method where the game snake is executed
+        /// </summary>
         private void ExecuteSnake()
         {
             Console.Clear();
