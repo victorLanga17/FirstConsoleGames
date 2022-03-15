@@ -59,15 +59,30 @@ namespace CommandLineGames
 
             return option;
         }
-        
+
         /// <summary>
         /// Method that determines the next direction the snake will be facing during the game
         /// </summary>
         /// <param name="lastInput">Last input registered before the execution of the method</param>
+        /// <param name="levelSize">Int with the level size chosen (relative to the difficulty option</param>
         /// <returns>Int that represents the direction of the snake</returns>
-        internal static int GetInput(int lastInput)
-        { 
-            Thread.Sleep(600);
+        internal static int GetInput(int lastInput, int levelSize)
+        {
+            int timeout;
+            switch (levelSize)
+            {
+                case 10:
+                    timeout = 600;
+                    break;
+                case 20:
+                    timeout = 400;
+                    break;
+                default:
+                    timeout = 200;
+                    break;
+            }
+            
+            Thread.Sleep(timeout);
             
             while (!Console.KeyAvailable) return lastInput;
 

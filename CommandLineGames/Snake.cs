@@ -108,7 +108,7 @@ namespace CommandLineGames
                     snakePosition = ResizeSnake(snakePosition);
                 }
                 
-                direction = InDataSnake.GetInput(direction);
+                direction = InDataSnake.GetInput(direction, levelSize);
                 MoveSnake(snakePosition, direction, ref pointThisTurn);
                 isVictory = CheckIfEnd(counter, levelSize, ref endOfTheGame, snakePosition);
                 

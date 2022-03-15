@@ -20,7 +20,8 @@ namespace CommandLineGames
         {
             Console.CursorVisible = false;
             Console.Title = "Command Line Games by Victor Langa";
-            ExternalSources.DisableConsoleResize.SetDisableResize();
+            if (OperatingSystem.IsWindows())
+                ExternalSources.DisableConsoleResize.SetDisableResize();
             
             var program = new Program();
             program.Start();
