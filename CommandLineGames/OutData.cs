@@ -5,11 +5,12 @@
  */
 
 using System;
+using System.Threading;
 
 namespace CommandLineGames
 {
     /// <summary>
-    /// Class where are the output methods specific to the game Snake are managed
+    /// Class where the specific output methods for the game Snake are managed
     /// </summary>
     public static class OutDataSnake
     {
@@ -213,6 +214,45 @@ namespace CommandLineGames
             Console.WriteLine("Press any key to return to the title screen");
             Console.ReadKey();
             Console.Clear();
+        }
+    }
+
+    /// <summary>
+    /// Class where the specific output methods for the game Minesweeper are managed
+    /// </summary>
+    public static class OutDataMinesweeper
+    {
+        /// <summary>
+        /// Method that prints the title screen
+        /// </summary>
+        public static void PrintTitleScreen()
+        {
+            while (!Console.KeyAvailable)
+            {
+                if (Console.KeyAvailable) continue;
+                Console.Clear();
+                ExternalSources.AsciiElements.PrintMinesweeperTitle();
+                ExternalSources.AsciiElements.PrintMinesweeperMineDrawing();
+                Console.SetCursorPosition(Console.WindowWidth - Console.WindowWidth / 4,
+                    Console.WindowHeight - Console.WindowHeight / 4);
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("Press any key to start");
+                Console.ResetColor();
+                Thread.Sleep(1000);
+                
+                if (Console.KeyAvailable) continue;
+                Console.Clear();
+                ExternalSources.AsciiElements.PrintMinesweeperTitle();
+                ExternalSources.AsciiElements.PrintMinesweeperBoom();
+                Console.SetCursorPosition(Console.WindowWidth - Console.WindowWidth / 4,
+                    Console.WindowHeight - Console.WindowHeight / 4);
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("Press any key to start");
+                Console.ResetColor();
+                Thread.Sleep(1000);
+            }
+
+            Console.ReadKey();
         }
     }
 }

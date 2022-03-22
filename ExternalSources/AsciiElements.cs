@@ -120,5 +120,86 @@ namespace ExternalSources
             Console.WriteLine(" ▀██████▀    ███    █▀          ▀█   █▀   ▀██████▀ ");
             Console.ResetColor();
         }
+
+        public static void PrintMinesweeperTitle()
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 30, Console.CursorTop);
+            Console.WriteLine(@"  __  __ _");
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 30, Console.CursorTop);
+            Console.WriteLine(@" |  \/  (_)");
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 30, Console.CursorTop);
+            Console.WriteLine(@" | \  / |_ _ __   ___  _____      _____  ___ _ __   ___ _ __");
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 30, Console.CursorTop);
+            Console.WriteLine(@" | |\/| | | '_ \ / _ \/ __\ \ /\ / / _ \/ _ \ '_ \ / _ \ '__|");
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 30, Console.CursorTop);
+            Console.WriteLine(@" | |  | | | | | |  __/\__ \\ V  V /  __/  __/ |_) |  __/ |");
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 30, Console.CursorTop);
+            Console.WriteLine(@" |_|  |_|_|_| |_|\___||___/ \_/\_/ \___|\___| .__/ \___|_|");
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 30, Console.CursorTop);
+            Console.WriteLine(@"                                            | |");
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 30, Console.CursorTop);
+            Console.WriteLine("                                            |_|\n\n\n\n\n");
+            Console.ResetColor();
+        }
+
+        public static void PrintMinesweeperMineDrawing()
+        {
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 25, Console.CursorTop);
+            Console.WriteLine("                             @@@                            ");
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 25, Console.CursorTop);
+            Console.WriteLine("                           &@ %@@#                          ");
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 25, Console.CursorTop);
+            Console.WriteLine("               &@@   &@@*,,,,,,,****%@@#  &@@#              ");
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 25, Console.CursorTop);
+            Console.WriteLine("              @@@ %@@,     .,   ,   .,,&@@, @@@             ");
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 25, Console.CursorTop);
+            Console.WriteLine("               @@@,  .,   (*,,,,,,,,/(,,,@@@@#              ");
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 25, Console.CursorTop);
+            Console.WriteLine("               @@ .....,,,///,,,///,%@(*,@@@@#              ");
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 25, Console.CursorTop);
+            Console.WriteLine("              @,  .,(,,,/(((((((/(((*,(&@(&@@@@             ");
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 25, Console.CursorTop);
+            Console.WriteLine("           @@@@*,,  (,,(((@,  *(@#(((((&@(&@@@@@@@          ");
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 25, Console.CursorTop);
+            Console.WriteLine("         @@&&&@*.  .,,,(((@(**%@@@@@##@((@@@@@@@@@@#        ");
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 25, Console.CursorTop);
+            Console.WriteLine("           @@@@*, .,,,,((((&@@@@@@@@#((&@(&@@@@@@@          ");
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 25, Console.CursorTop);
+            Console.WriteLine("              @@@(,,,/(@#(@#(@@@@@@@#(@#(@@@@@@             ");
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 25, Console.CursorTop);
+            Console.WriteLine("               @@@@@#&@@##@##@((#@@@##@@@@@@@#              ");
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 25, Console.CursorTop);
+            Console.WriteLine("                 @@@@@@(&@@#/@@@@@@@@@@@@@@@                ");
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 25, Console.CursorTop);
+            Console.WriteLine("               @@(&@@@@@@@@@@@@@@@@@@@@@@@#(@#              ");
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 25, Console.CursorTop);
+            Console.WriteLine("                #@@@####@@@@@@@@@@@@%####@@@#               ");
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 25, Console.CursorTop);
+            Console.WriteLine("                           &@@#(@#                          ");
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 25, Console.CursorTop);
+            Console.WriteLine("                             @@@                            ");
+            
+        }
+
+        public static void PrintMinesweeperBoom()
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            for (int i = 0, j = -20; i < 2; i++, j += 30)
+            {
+                Console.WriteLine();
+                Console.SetCursorPosition(Console.WindowWidth / 4 + j, Console.CursorTop);
+                Console.WriteLine("    __                        ");
+                Console.SetCursorPosition(Console.WindowWidth / 4 + j, Console.CursorTop);
+                Console.WriteLine(@"   / /_  ____  ____  ____ ___ ");
+                Console.SetCursorPosition(Console.WindowWidth / 4 + j, Console.CursorTop);
+                Console.WriteLine(@"  / __ \/ __ \/ __ \/ __ `__ \");
+                Console.SetCursorPosition(Console.WindowWidth / 4 + j, Console.CursorTop);
+                Console.WriteLine(@" / /_/ / /_/ / /_/ / / / / / /");
+                Console.SetCursorPosition(Console.WindowWidth / 4 + j, Console.CursorTop);
+                Console.WriteLine(@"/_.___/\____/\____/_/ /_/ /_/ ");
+            }
+            Console.ResetColor();
+        }
     }
 }

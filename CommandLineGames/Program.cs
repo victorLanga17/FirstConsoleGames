@@ -48,7 +48,8 @@ namespace CommandLineGames
         {
             Console.WriteLine("Command Line Games");
             Console.WriteLine("By Victor Langa");
-            Console.WriteLine("\n   [1] Snake");
+            Console.WriteLine("\n   [1] Snake" +
+                              "\n   [2] Minesweeper");
         }
 
         /// <summary>
@@ -62,6 +63,9 @@ namespace CommandLineGames
             {
                 case '1':
                     ExecuteSnake();
+                    break;
+                case '2':
+                    ExecuteMinesweeper();
                     break;
                 default:
                     end = true;
@@ -77,6 +81,17 @@ namespace CommandLineGames
             Console.Clear();
             var snakeGame = new Snake();
             snakeGame.MenuSnake();
+            Console.Clear();
+        }
+
+        /// <summary>
+        /// Method where the game snake is executed
+        /// </summary>
+        private void ExecuteMinesweeper()
+        {
+            Console.Clear();
+            var minesweeperGame = new Minesweeper();
+            minesweeperGame.MenuMinesweeper();
             Console.Clear();
         }
     }

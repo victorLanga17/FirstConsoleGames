@@ -114,4 +114,12 @@ namespace CommandLineGames
             return direction;
         }
     }
+
+    /// <summary>
+    /// Class where the input methods exclusive to the game Minesweeper are managed
+    /// </summary>
+    public static class InDataMinesweeper
+    {
+        
+    }
 }
