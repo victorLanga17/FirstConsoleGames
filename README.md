@@ -5,6 +5,6 @@ At the moment I'm doing these programs I'm still a student and haven't studied o
 
 ### Planned games are listed below:
   - **Snake** (almost done)
-  - **Minesweeper** (to be done)
+  - **Minesweeper** (in development)
   - **Pong** (to be done)
   - **Tetris** (to be done)
