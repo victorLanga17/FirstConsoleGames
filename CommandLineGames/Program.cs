@@ -91,7 +91,7 @@ namespace CommandLineGames
         {
             Console.Clear();
             var minesweeperGame = new Minesweeper();
-            minesweeperGame.MenuMinesweeper();
+            minesweeperGame.MinesweeperMain();
             Console.Clear();
         }
     }

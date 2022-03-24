@@ -10,16 +10,11 @@ namespace CommandLineGames
 {
     public class Minesweeper
     {
-        internal void MenuMinesweeper()
+        internal void MinesweeperMain()
         {
             SetConsoleParametersMinesweeper();
-
-            bool end = false;
-            do
-            {
-                OutDataMinesweeper.PrintTitleScreen();
-                MinesweeperGame(ref end);
-            } while (!end);
+            OutDataMinesweeper.PrintTitleScreen();
+            MinesweeperInitializate();
         }
 
         private void SetConsoleParametersMinesweeper()
@@ -32,11 +27,55 @@ namespace CommandLineGames
             }
         }
 
-        private void MinesweeperGame(ref bool end)
+        private void MinesweeperInitializate()
         {
             Console.Clear();
             ExternalSources.AsciiElements.PrintMinesweeperTitle();
-            Console.ReadKey();
+            OutDataMinesweeper.PrintInstructions();
+            OutDataMinesweeper.PrintBoard();
+            OutDataMinesweeper.PrintHowToEnterMenu();
+
+            MinesweeperGameLoop();
+        }
+
+        private void MinesweeperGameLoop()
+        {
+            bool end = false;
+            bool isVictory = false;
+            int mines = 50;
+            int[] board = {20, 25};
+            do
+            {
+                int action = InDataMinesweeper.GetInput();
+                DoAction(action, ref end);
+                // CheckIfEnd
+            } while (!end);
+        }
+
+        private void DoAction(int action, ref bool end)
+        {
+            if (action == 7) GoMenu(ref end);
+            else /*to do inputs here*/;
+        }
+
+        private void GoMenu(ref bool end)
+        {
+            int menuAction;
+            bool endMenu = false;
+
+            do
+            {
+                OutDataMinesweeper.PrintMenu();
+                menuAction = InData.GetMenuOption(3, Console.WindowWidth / 4 - 25, 24);
+
+                if (menuAction == 3) end = true;
+                else if (menuAction == 1)
+                {
+                    endMenu = true;
+                    OutDataMinesweeper.ClearMenu();
+                }
+                else /*change difficulty by adding mines*/ ; 
+            } while (!end && !endMenu);
         }
     }
 }

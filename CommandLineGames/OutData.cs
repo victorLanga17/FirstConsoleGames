@@ -10,6 +10,36 @@ using System.Threading;
 namespace CommandLineGames
 {
     /// <summary>
+    /// Class where the general output methods are managed
+    /// </summary>
+    public static class OutData
+    {
+        /// <summary>
+        /// Method that displays the menu cursor in the corresponding position
+        /// </summary>
+        /// <param name="option">Last option (or position) recorded before the method was executed</param>
+        /// <param name="leftPosition">Int with the horizontal position the console cursor will be set</param>
+        /// <param name="topPosition">Int with the vertical position the console cursor will be set</param>
+        /// <param name="numberOfOptions">Int with the number of menu options</param>
+        internal static void PrintMenuCursor(int option, int leftPosition, int topPosition, int numberOfOptions)
+        {
+            topPosition -= 2; // this is to match the Console.SetCursorPosition with the for's structure
+            int currentPosition = topPosition + 2 * option;
+
+            for (int i = 1; i <= numberOfOptions; i++)
+            {
+                Console.SetCursorPosition(leftPosition, topPosition + 2 * i);
+                Console.Write(" ");
+            }
+            
+            Console.SetCursorPosition(leftPosition, currentPosition);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write(">");
+            Console.ResetColor();
+        }
+    }
+    
+    /// <summary>
     /// Class where the specific output methods for the game Snake are managed
     /// </summary>
     public static class OutDataSnake
@@ -29,29 +59,6 @@ namespace CommandLineGames
             ExternalSources.AsciiElements.PrintSnakeDrawing();
         }
 
-        /// <summary>
-        /// Method that displays the menu cursor in the corresponding position
-        /// </summary>
-        /// <param name="option">Last option (or position) recorded before the method was executed</param>
-        internal static void PrintMenuCursor(int option)
-        {
-            int topPosition;
-            if (option == 1) topPosition = 15;
-            else if (option == 2) topPosition = 17;
-            else topPosition = 19;
-
-            for (int i = 0; i < 3; i++)
-            {
-                Console.SetCursorPosition(35, 15 + 2 * i);
-                Console.Write(" ");
-            }
-            
-            Console.SetCursorPosition(35, topPosition);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write(">");
-            Console.ResetColor();
-        }
-        
         /// <summary>
         /// Method that prints the instructions
         /// </summary>
@@ -225,7 +232,7 @@ namespace CommandLineGames
         /// <summary>
         /// Method that prints the title screen
         /// </summary>
-        public static void PrintTitleScreen()
+        internal static void PrintTitleScreen()
         {
             while (!Console.KeyAvailable)
             {
@@ -253,6 +260,56 @@ namespace CommandLineGames
             }
 
             Console.ReadKey();
+        }
+
+        internal static void PrintInstructions()
+        {
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 25, 14);
+            Console.WriteLine("Use the arrow keys to move");
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 25, 16);
+            Console.WriteLine("Press [SPACEBAR] to reveal the square");
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 25, 18);
+            Console.WriteLine("Press [ENTER] to put a flag");
+        }
+
+        internal static void PrintHowToEnterMenu()
+        {
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 25, 24);
+            Console.WriteLine("Press [M] to enter the menu");
+        }
+        
+        internal static void PrintMenu()
+        {
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 25, 24);
+            Console.WriteLine("                           ");
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 20, 24);
+            Console.WriteLine("Return to the game");
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 20, 26);
+            Console.WriteLine("Difficulty");
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 20, 28);
+            Console.WriteLine("Exit");
+        }
+
+        internal static void ClearMenu()
+        {
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 25, 24);
+            Console.WriteLine("Press [M] to enter the menu");
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 20, 26);
+            Console.WriteLine("          ");
+            Console.SetCursorPosition(Console.WindowWidth / 4 - 20, 28);
+            Console.WriteLine("    ");
+        }
+
+        internal static void PrintBoard()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            for (int i = 0; i < 20; i++)
+            {
+                Console.SetCursorPosition(Console.WindowWidth / 2 - 7, Console.WindowHeight / 4 + i + 2);
+                for (int j = 0; j < 30; j++)
+                    Console.Write("■ ");
+            }
+            Console.ResetColor();
         }
     }
 }

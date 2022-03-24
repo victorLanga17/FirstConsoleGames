@@ -24,34 +24,31 @@ namespace CommandLineGames
             Console.WriteLine(message);
             return Console.ReadKey().KeyChar;
         }
-    }
 
-    /// <summary>
-    /// Class where the input methods exclusive to the game Snake are managed
-    /// </summary>
-    public static class InDataSnake
-    {
         /// <summary>
         /// Method that determines the option taken in the menu
         /// </summary>
+        /// <param name="numberOfOptions">Int with the number of menu options</param>
+        /// <param name="leftPosition">Int with the horizontal position the console cursor will be set</param>
+        /// <param name="topPosition">Int with the vertical position the console cursor will be set</param>
         /// <returns>Int with the option taken</returns>
-        internal static int GetMenuOption()
+        internal static int GetMenuOption(int numberOfOptions, int leftPosition, int topPosition)
         {
             int option = 1;
             bool end = false;
 
             while (!end)
             {
-                OutDataSnake.PrintMenuCursor(option);
+                OutData.PrintMenuCursor(option, leftPosition, topPosition, numberOfOptions);
                 var input = Console.ReadKey(true);
                 if (input.Key == ConsoleKey.UpArrow)
                 {
-                    if (option == 1) option = 3;
+                    if (option == 1) option = numberOfOptions;
                     else option--;
                 }
                 else if (input.Key == ConsoleKey.DownArrow)
                 {
-                    if (option == 3) option = 1;
+                    if (option == numberOfOptions) option = 1;
                     else option++;
                 }
                 else if (input.Key == ConsoleKey.Enter) end = true;
@@ -59,7 +56,13 @@ namespace CommandLineGames
 
             return option;
         }
+    }
 
+    /// <summary>
+    /// Class where the input methods exclusive to the game Snake are managed
+    /// </summary>
+    public static class InDataSnake
+    {
         /// <summary>
         /// Method that determines the next direction the snake will be facing during the game
         /// </summary>
@@ -120,6 +123,40 @@ namespace CommandLineGames
     /// </summary>
     public static class InDataMinesweeper
     {
-        
+        internal static int GetInput()
+        {
+            int action;
+            ConsoleKeyInfo input = Console.ReadKey(true);
+
+            switch (input.Key)
+            {
+                case ConsoleKey.UpArrow:
+                    action = 1; // go up
+                    break;
+                case ConsoleKey.DownArrow:
+                    action = 2; // go down
+                    break;
+                case ConsoleKey.RightArrow:
+                    action = 3; // go right
+                    break;
+                case ConsoleKey.LeftArrow:
+                    action = 4; // go left
+                    break;
+                case ConsoleKey.Spacebar:
+                    action = 5; // reveal square
+                    break;
+                case ConsoleKey.Enter: 
+                    action = 6; // put flag
+                    break;
+                case ConsoleKey.M:
+                    action = 7; // go menu
+                    break;
+                default:
+                    action = 0; // do nothing
+                    break;
+            }
+
+            return action;
+        }
     }
 }
