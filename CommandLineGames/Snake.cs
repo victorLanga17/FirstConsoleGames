@@ -47,7 +47,7 @@ namespace CommandLineGames
         /// <param name="end">Boolean that determines if the program must end</param>
         private void ChooseOption(ref bool end)
         {
-            int option = InData.GetMenuOption(3, 35, 15);
+            int option = InData.GetMenuOption(3, Console.WindowWidth / 2 - 11, 14);
             switch (option)
             {
                 case 1:
@@ -69,7 +69,7 @@ namespace CommandLineGames
         private int ChooseLevelSize()
         {
             OutDataSnake.PrintChooseDifficulty();
-            int levelSize = InData.GetMenuOption(3, 35, 15) * 10;
+            int levelSize = InData.GetMenuOption(3, Console.WindowWidth / 2 - 11, 14) * 10;
             return levelSize;
         }
         

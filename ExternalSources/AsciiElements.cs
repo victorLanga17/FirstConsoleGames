@@ -32,12 +32,13 @@ namespace ExternalSources
         public static void PrintSnakeDrawing()
         {
             Console.ForegroundColor = ConsoleColor.White;
-            Console.SetCursorPosition(Console.WindowWidth / 2 - 30, Console.CursorTop);
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 30, Console.CursorTop + 5);
             Console.WriteLine(@"           /^\/^\");
             Console.SetCursorPosition(Console.WindowWidth / 2 - 30, Console.CursorTop);
             Console.WriteLine(@"         _|__|  O|");
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write(@"                    \/"); 
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 30, Console.CursorTop);
+            Console.Write(@"\/"); 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write(@"     /~     ");
             Console.ForegroundColor = ConsoleColor.White;
@@ -45,7 +46,8 @@ namespace ExternalSources
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(@" \");
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write(@"                     \____"); 
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 30, Console.CursorTop);
+            Console.Write(@"\____"); 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(@"|__________/  \");
             Console.SetCursorPosition(Console.WindowWidth / 2 - 30, Console.CursorTop);

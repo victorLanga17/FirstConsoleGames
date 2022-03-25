@@ -51,10 +51,14 @@ namespace CommandLineGames
         {
             ExternalSources.AsciiElements.PrintSnakeTitle();
             
-            Console.WriteLine("\n\n\n\n                               Choose an option:");
-            Console.WriteLine("\n                                        Play");
-            Console.WriteLine("\n                                        Instructions");
-            Console.WriteLine("\n                                        Exit\n\n\n\n\n\n");
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 10, Console.CursorTop + 3);
+            Console.WriteLine("Choose an option:");
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 7, Console.CursorTop + 1);
+            Console.WriteLine("Play");
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 7, Console.CursorTop + 1);
+            Console.WriteLine("Instructions");
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 7, Console.CursorTop + 1);
+            Console.WriteLine("Exit");
             
             ExternalSources.AsciiElements.PrintSnakeDrawing();
         }
@@ -67,13 +71,13 @@ namespace CommandLineGames
             Console.Clear();
             ExternalSources.AsciiElements.PrintSnakeTitle();
             
-            Console.SetCursorPosition(Console.WindowWidth / 2 - Console.WindowWidth / 5, Console.CursorTop + 9);
-            Console.WriteLine("Press the arrow keys to move the snake\n");
-            Console.SetCursorPosition(Console.WindowWidth / 2 - Console.WindowWidth / 5, Console.CursorTop);
-            Console.WriteLine("Eat the red apples to score one point\n");
-            Console.SetCursorPosition(Console.WindowWidth / 2 - Console.WindowWidth / 5, Console.CursorTop);
-            Console.WriteLine("Do not crash into the walls or yourself!\n");
-            Console.SetCursorPosition(Console.WindowWidth / 2 - Console.WindowWidth / 6, 
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 20, Console.CursorTop + 9);
+            Console.WriteLine("Press the arrow keys to move the snake");
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 20, Console.CursorTop + 1);
+            Console.WriteLine("Eat the red apples to score one point");
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 20, Console.CursorTop + 1);
+            Console.WriteLine("Do not crash into the walls or yourself!");
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 15, 
                 Console.WindowHeight / 2 + Console.WindowHeight / 3);
             Console.WriteLine("Press any key to continue");
             Console.ReadKey();
@@ -88,10 +92,14 @@ namespace CommandLineGames
             Console.Clear();
             ExternalSources.AsciiElements.PrintSnakeTitle();
             
-            Console.WriteLine("\n\n\n\n                               Choose a difficulty:");
-            Console.WriteLine("\n                                        Easy");
-            Console.WriteLine("\n                                        Medium");
-            Console.WriteLine("\n                                        Hard\n\n\n\n\n\n");
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 10, Console.CursorTop + 3);
+            Console.WriteLine("Choose a difficulty:");
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 7, Console.CursorTop + 1);
+            Console.WriteLine("Easy");
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 7, Console.CursorTop + 1);
+            Console.WriteLine("Medium");
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 7, Console.CursorTop + 1);
+            Console.WriteLine("Hard");
             
             ExternalSources.AsciiElements.PrintSnakeDrawing();
         }
@@ -205,10 +213,13 @@ namespace CommandLineGames
             else
             {
                 ExternalSources.AsciiElements.PrintSnakeDefeat();
-                Console.SetCursorPosition(Console.WindowWidth / 2 - Console.WindowWidth / 4 + 5, 
+                Console.SetCursorPosition(Console.WindowWidth / 2 - 20, 
                     Console.WindowHeight / 2);
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                if (counter == 0) Console.WriteLine("The snake couldn't eat any apple");
+                if (counter == 0)
+                {
+                    Console.WriteLine("The snake couldn't eat any apple");
+                }
                 else
                 {
                     Console.Write("The snake could just eat {0} apple", counter);
@@ -216,7 +227,7 @@ namespace CommandLineGames
                 }
                 Console.ResetColor();
             }
-            Console.SetCursorPosition(Console.WindowWidth / 2 - Console.WindowWidth / 4,
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 25,
                     Console.WindowHeight / 2 + Console.WindowHeight / 3);
             Console.WriteLine("Press any key to return to the title screen");
             Console.ReadKey();
