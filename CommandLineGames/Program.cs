@@ -22,6 +22,19 @@ namespace CommandLineGames
             Console.Title = "Command Line Games by Victor Langa";
             if (OperatingSystem.IsWindows())
                 ExternalSources.DisableConsoleResize.SetDisableResize();
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("WARNING");
+                Console.ResetColor();
+                Console.WriteLine("\nThe program has detected your operating system is not Windows." +
+                                  "\nTo assure the program works properly, the console must be maximized and not " +
+                                  "resized or minimized during its execution.");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("\n -- Press any key to continue");
+                Console.ResetColor();
+                Console.ReadKey();
+            }
             
             var program = new Program();
             program.Start();
@@ -49,7 +62,8 @@ namespace CommandLineGames
             Console.WriteLine("Command Line Games");
             Console.WriteLine("By Victor Langa");
             Console.WriteLine("\n   [1] Snake" +
-                              "\n   [2] Minesweeper");
+                              "\n   [2] Minesweeper" +
+                              "\n   [5] Exit");
         }
 
         /// <summary>
@@ -59,18 +73,28 @@ namespace CommandLineGames
         private void ChooseOption(ref bool end)
         {
             char option = InData.GetChar("\n--- Introduce an option or press any other key to exit");
-            switch (option)
+            bool isValidOption;
+
+            do
             {
-                case '1':
-                    ExecuteSnake();
-                    break;
-                case '2':
-                    ExecuteMinesweeper();
-                    break;
-                default:
-                    end = true;
-                    break;
-            }
+                isValidOption = true;
+                switch (option)
+                {
+                    case '1':
+                        ExecuteSnake();
+                        break;
+                    case '2':
+                        ExecuteMinesweeper();
+                        break;
+                    case '5':
+                        end = true;
+                        break;
+                    default:
+                        isValidOption = false;
+                        option = InData.GetChar("\n\nIntroduce a valid option:");
+                        break;
+                }
+            } while (!isValidOption);
         }
 
         /// <summary>
