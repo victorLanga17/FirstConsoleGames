@@ -22,7 +22,7 @@ namespace CommandLineGames
         public static char GetChar(string message)
         {
             Console.WriteLine(message);
-            return Console.ReadKey().KeyChar;
+            return Console.ReadKey(true).KeyChar;
         }
 
         /// <summary>

@@ -342,7 +342,7 @@ namespace CommandLineGames
         /// </summary>
         internal static void PrintBoard()
         {
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
             for (int i = 0; i < 20; i++)
             {
                 Console.SetCursorPosition(Console.WindowWidth / 2 - 7, Console.WindowHeight / 4 + i + 2);
@@ -378,10 +378,88 @@ namespace CommandLineGames
             Console.WriteLine("    ");
         }
 
+        /// <summary>
+        /// Method that prints if the game is gonna change difficulty in the next game
+        /// </summary>
         internal static void PrintNextGameDifficulty()
         {
             Console.SetCursorPosition(Console.WindowWidth / 4 + 33, Console.WindowHeight / 4 + 28);
             Console.WriteLine("Your difficulty options will be applied in the next game");
+        }
+
+        /// <summary>
+        /// Method that clears the text that tells if the difficulty will change in the next game
+        /// </summary>
+        internal static void ClearNextGameDifficulty()
+        {
+            Console.SetCursorPosition(Console.WindowWidth / 4 + 33, Console.WindowHeight / 4 + 28);
+            Console.WriteLine("                                                        ");
+        }
+
+        /// <summary>
+        /// Method that prints a flag
+        /// </summary>
+        internal static void PrintPutFlag()
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("▲");
+            Console.ResetColor();
+            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+        }
+
+        /// <summary>
+        /// Method that prints a box when a flag was previously placed
+        /// </summary>
+        internal static void PrintQuitFlag()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.Write("■");
+            Console.ResetColor();
+            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+        }
+
+        /// <summary>
+        /// Method that prints the box value
+        /// </summary>
+        /// <param name="value">String with the box value</param>
+        internal static void PrintBoxValue(string value)
+        {
+            if (value == "∅") Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write(value);
+            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+        }
+
+        /// <summary>
+        /// Method that prints the defeat
+        /// </summary>
+        internal static void PrintDefeat()
+        {
+            Console.SetCursorPosition(Console.WindowWidth / 4 + 15, Console.WindowHeight / 4 + 24);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("You lost...");
+            Console.ResetColor();
+        }
+        
+        /// <summary>
+        /// Method that prints the win
+        /// </summary>
+        internal static void PrintWin()
+        {
+            Console.SetCursorPosition(Console.WindowWidth / 4 + 15, Console.WindowHeight / 4 + 24);
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("You won!");
+            Console.ResetColor();
+        }
+        
+        /// <summary>
+        /// Method that clears the win or defeat
+        /// </summary>
+        internal static void ClearWinOrDefeat()
+        {
+            Console.SetCursorPosition(Console.WindowWidth / 4 + 15, Console.WindowHeight / 4 + 24);
+            Console.WriteLine("           ");
+            Console.SetCursorPosition(Console.WindowWidth / 4 + 15, Console.WindowHeight / 4 + 26);
+            Console.WriteLine("                                    ");
         }
     }
 }

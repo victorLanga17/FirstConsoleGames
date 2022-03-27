@@ -34,6 +34,7 @@ namespace CommandLineGames
                 Console.WriteLine("\n -- Press any key to continue");
                 Console.ResetColor();
                 Console.ReadKey();
+                Console.Clear();
             }
             
             var program = new Program();
