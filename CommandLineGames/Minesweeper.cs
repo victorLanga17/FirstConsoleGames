@@ -10,11 +10,13 @@ namespace CommandLineGames
 {
     public class Minesweeper
     {
+        private int mines = 100;
+        
         internal void MinesweeperMain()
         {
             SetConsoleParametersMinesweeper();
             OutDataMinesweeper.PrintTitleScreen();
-            MinesweeperInitializate();
+            MinesweeperInitialize();
         }
 
         private void SetConsoleParametersMinesweeper()
@@ -27,7 +29,7 @@ namespace CommandLineGames
             }
         }
 
-        private void MinesweeperInitializate()
+        private void MinesweeperInitialize()
         {
             Console.Clear();
             ExternalSources.AsciiElements.PrintMinesweeperTitle();
@@ -42,7 +44,6 @@ namespace CommandLineGames
         {
             bool end = false;
             bool isVictory = false;
-            int mines = 50;
             int[] board = {20, 25};
             do
             {
@@ -60,13 +61,12 @@ namespace CommandLineGames
 
         private void GoMenu(ref bool end)
         {
-            int menuAction;
             bool endMenu = false;
 
             do
             {
                 OutDataMinesweeper.PrintMenu();
-                menuAction = InData.GetMenuOption(3, Console.WindowWidth / 4 - 25, 24);
+                int menuAction = InData.GetMenuOption(3, Console.WindowWidth / 4 - 25, 24);
 
                 if (menuAction == 3) end = true;
                 else if (menuAction == 1)
@@ -74,8 +74,30 @@ namespace CommandLineGames
                     endMenu = true;
                     OutDataMinesweeper.ClearMenu();
                 }
-                else /*change difficulty by adding mines*/ ; 
+                else ChangeDifficulty() ; 
             } while (!end && !endMenu);
+        }
+
+        private void ChangeDifficulty()
+        {
+            OutDataMinesweeper.PrintDifficultyOptions();
+            
+            int newDifficulty = InData.GetMenuOption(3, Console.WindowWidth / 4 - 5, 26);
+            switch (newDifficulty)
+            {
+                case 1:
+                    mines = 50;
+                    break;
+                case 2:
+                    mines = 100;
+                    break;
+                default:
+                    mines = 150;
+                    break;
+            }
+            
+            OutDataMinesweeper.PrintNextGameDifficulty();
+            OutDataMinesweeper.ClearDifficultyOptions();
         }
     }
 }

@@ -37,6 +37,22 @@ namespace CommandLineGames
             Console.Write(">");
             Console.ResetColor();
         }
+
+        /// <summary>
+        /// Method that clears the menu cursor possible positions
+        /// </summary>
+        /// <param name="leftPosition">Int with the horizontal position the console cursor will be set</param>
+        /// <param name="topPosition">Int with the vertical position the console cursor will be set</param>
+        /// <param name="numberOfOptions">Int with the number of menu options</param>
+        internal static void ClearMenuCursor(int leftPosition, int topPosition, int numberOfOptions)
+        {
+            topPosition -= 2;
+            for (int i = 1; i <= numberOfOptions; i++)
+            {
+                Console.SetCursorPosition(leftPosition, topPosition + 2 * i);
+                Console.Write(" ");
+            }
+        }
     }
     
     /// <summary>
@@ -273,6 +289,9 @@ namespace CommandLineGames
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Method that prints the instructions
+        /// </summary>
         internal static void PrintInstructions()
         {
             Console.SetCursorPosition(Console.WindowWidth / 4 - 25, 14);
@@ -283,24 +302,31 @@ namespace CommandLineGames
             Console.WriteLine("Press [ENTER] to put a flag");
         }
 
+        /// <summary>
+        /// Method that prints the needed input to enter the menu
+        /// </summary>
         internal static void PrintHowToEnterMenu()
         {
             Console.SetCursorPosition(Console.WindowWidth / 4 - 25, 24);
             Console.WriteLine("Press [M] to enter the menu");
         }
         
+        /// <summary>
+        /// Method that prints the menu
+        /// </summary>
         internal static void PrintMenu()
         {
             Console.SetCursorPosition(Console.WindowWidth / 4 - 25, 24);
-            Console.WriteLine("                           ");
-            Console.SetCursorPosition(Console.WindowWidth / 4 - 20, 24);
-            Console.WriteLine("Return to the game");
+            Console.WriteLine("     Return to the game    ");
             Console.SetCursorPosition(Console.WindowWidth / 4 - 20, 26);
             Console.WriteLine("Difficulty");
             Console.SetCursorPosition(Console.WindowWidth / 4 - 20, 28);
             Console.WriteLine("Exit");
         }
 
+        /// <summary>
+        /// Method that clears the menu when closed
+        /// </summary>
         internal static void ClearMenu()
         {
             Console.SetCursorPosition(Console.WindowWidth / 4 - 25, 24);
@@ -311,9 +337,12 @@ namespace CommandLineGames
             Console.WriteLine("    ");
         }
 
+        /// <summary>
+        /// Method that prints the minesweeper board
+        /// </summary>
         internal static void PrintBoard()
         {
-            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.ForegroundColor = ConsoleColor.White;
             for (int i = 0; i < 20; i++)
             {
                 Console.SetCursorPosition(Console.WindowWidth / 2 - 7, Console.WindowHeight / 4 + i + 2);
@@ -321,6 +350,38 @@ namespace CommandLineGames
                     Console.Write("■ ");
             }
             Console.ResetColor();
+        }
+
+        /// <summary>
+        /// Method that prints the difficulty options
+        /// </summary>
+        internal static void PrintDifficultyOptions()
+        {
+            Console.SetCursorPosition(Console.WindowWidth / 4, 26);
+            Console.WriteLine("Easy");
+            Console.SetCursorPosition(Console.WindowWidth / 4, 28);
+            Console.WriteLine("Normal");
+            Console.SetCursorPosition(Console.WindowWidth / 4, 30);
+            Console.WriteLine("Hard");
+        }
+
+        /// <summary>
+        /// Method that clears the difficulty options when closed
+        /// </summary>
+        internal static void ClearDifficultyOptions()
+        {
+            Console.SetCursorPosition(Console.WindowWidth / 4, 26);
+            Console.WriteLine("    ");
+            Console.SetCursorPosition(Console.WindowWidth / 4, 28);
+            Console.WriteLine("      ");
+            Console.SetCursorPosition(Console.WindowWidth / 4, 30);
+            Console.WriteLine("    ");
+        }
+
+        internal static void PrintNextGameDifficulty()
+        {
+            Console.SetCursorPosition(Console.WindowWidth / 4 + 33, Console.WindowHeight / 4 + 28);
+            Console.WriteLine("Your difficulty options will be applied in the next game");
         }
     }
 }

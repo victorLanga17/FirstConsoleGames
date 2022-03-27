@@ -54,6 +54,7 @@ namespace CommandLineGames
                 else if (input.Key == ConsoleKey.Enter) end = true;
             }
 
+            OutData.ClearMenuCursor(leftPosition, topPosition, numberOfOptions);
             return option;
         }
     }
