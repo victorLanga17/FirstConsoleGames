@@ -6,7 +6,6 @@ namespace ExternalSources
     public class DisableConsoleResize
     {
         private const int MfBycommand = 0x00000000;
-        private const int ScClose = 0xF060;
         private const int ScMinimize = 0xF020;
         private const int ScMaximize = 0xF030;
         private const int ScSize = 0xF000;
@@ -27,7 +26,6 @@ namespace ExternalSources
 
             if (handle != IntPtr.Zero)
             {
-                DeleteMenu(sysMenu, ScClose, MfBycommand);
                 DeleteMenu(sysMenu, ScMinimize, MfBycommand);
                 DeleteMenu(sysMenu, ScMaximize, MfBycommand);
                 DeleteMenu(sysMenu, ScSize, MfBycommand);

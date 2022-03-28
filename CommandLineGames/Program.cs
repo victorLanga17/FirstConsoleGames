@@ -63,7 +63,7 @@ namespace CommandLineGames
             Console.WriteLine("Command Line Games");
             Console.WriteLine("By Victor Langa");
             Console.WriteLine("\n   [1] Snake" +
-                              "\n   [2] Minesweeper (in development)" +
+                              "\n   [2] Minesweeper" +
                               "\n   [5] Exit");
         }
 
