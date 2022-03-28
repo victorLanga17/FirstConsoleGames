@@ -13,6 +13,7 @@ namespace CommandLineGames
         private int _minesNextGame = 100;
         private int[,] _board = new int[20, 30];
         private int[] _cursorPosition = {0, 0};
+        private int _revealedBoxes;
         
         internal void MinesweeperMain()
         {
@@ -43,6 +44,7 @@ namespace CommandLineGames
             do
             {
                 _cursorPosition = new [] {0, 0};
+                _revealedBoxes = 0;
                 OutDataMinesweeper.PrintBoard();
                 GenerateNewMinesPositions();
                 FillBoardWithCorrespondentValues();
@@ -57,6 +59,10 @@ namespace CommandLineGames
             int minesPlaced = 0;
             var random = new Random();
 
+            for (int i = 0; i < _board.GetLength(0) && minesPlaced < _minesNextGame; i++)
+                for (int j = 0; j < _board.GetLength(1) && minesPlaced < _minesNextGame; j++)
+                    _board[i, j] = 0;
+            
             do
             {
                 for (int i = 0; i < _board.GetLength(0) && minesPlaced < _minesNextGame; i++)
@@ -118,7 +124,6 @@ namespace CommandLineGames
         private bool MinesweeperGameLoop(ref bool end)
         {
             Console.CursorVisible = true;
-            int revealedBoxes = 0;
             int minesCurrentGame = _minesNextGame;
             bool finishedGame;
             bool isVictory = false;
@@ -129,7 +134,7 @@ namespace CommandLineGames
             {
                 int action = InDataMinesweeper.GetInput();
                 DoAction(action, ref end);
-                finishedGame = CheckIfEnd(ref isVictory, ref revealedBoxes, minesCurrentGame);
+                finishedGame = CheckIfEnd(ref isVictory, minesCurrentGame);
             } while (!end && !finishedGame);
 
             return isVictory;
@@ -181,14 +186,16 @@ namespace CommandLineGames
             }
         }
 
-        private bool CheckIfEnd(ref bool isVictory, ref int revealedBoxes, int minesCurrentGame)
+        private bool CheckIfEnd(ref bool isVictory, int minesCurrentGame)
         {
-            if (revealedBoxes == _board.GetLength(0) * _board.GetLength(1) - minesCurrentGame)
-                isVictory = true;
-            
             if (Console.ForegroundColor == ConsoleColor.Red)
             {
                 Console.ResetColor();
+                return true;
+            }
+            if (_revealedBoxes == _board.GetLength(0) * _board.GetLength(1) - minesCurrentGame)
+            {
+                isVictory = true;
                 return true;
             }
             return false;
@@ -271,6 +278,7 @@ namespace CommandLineGames
             else value = Convert.ToString(_board[_cursorPosition[0], _cursorPosition[1]]);
             
             OutDataMinesweeper.PrintBoxValue(value);
+            _revealedBoxes++;
             _board[_cursorPosition[0], _cursorPosition[1]] = 0;
             if (revealSurroundBoxes) RevealSurroundingBoxesIfValue9();
         }
