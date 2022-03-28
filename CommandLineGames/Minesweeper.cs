@@ -10,7 +10,7 @@ namespace CommandLineGames
 {
     public class Minesweeper
     {
-        private int _mines = 100;
+        private int _minesNextGame = 100;
         private int[,] _board = new int[20, 30];
         private int[] _cursorPosition = {0, 0};
         
@@ -42,6 +42,7 @@ namespace CommandLineGames
             
             do
             {
+                _cursorPosition = new [] {0, 0};
                 OutDataMinesweeper.PrintBoard();
                 GenerateNewMinesPositions();
                 FillBoardWithCorrespondentValues();
@@ -58,16 +59,16 @@ namespace CommandLineGames
 
             do
             {
-                for (int i = 0; i < _board.GetLength(0) && minesPlaced < _mines; i++)
+                for (int i = 0; i < _board.GetLength(0) && minesPlaced < _minesNextGame; i++)
                 {
-                    for (int j = 0; j < _board.GetLength(1) && minesPlaced < _mines; j++)
+                    for (int j = 0; j < _board.GetLength(1) && minesPlaced < _minesNextGame; j++)
                     {
                         if (random.Next(0, 25) != 1 || (_board[i, j] == 10)) continue;
                         minesPlaced++;
                         _board[i, j] = 10;
                     }
                 }
-            } while (minesPlaced < _mines);
+            } while (minesPlaced < _minesNextGame);
         }
 
         private void FillBoardWithCorrespondentValues()
@@ -117,6 +118,8 @@ namespace CommandLineGames
         private bool MinesweeperGameLoop(ref bool end)
         {
             Console.CursorVisible = true;
+            int revealedBoxes = 0;
+            int minesCurrentGame = _minesNextGame;
             bool finishedGame;
             bool isVictory = false;
             
@@ -126,7 +129,7 @@ namespace CommandLineGames
             {
                 int action = InDataMinesweeper.GetInput();
                 DoAction(action, ref end);
-                finishedGame = CheckIfEnd();
+                finishedGame = CheckIfEnd(ref isVictory, ref revealedBoxes, minesCurrentGame);
             } while (!end && !finishedGame);
 
             return isVictory;
@@ -178,8 +181,11 @@ namespace CommandLineGames
             }
         }
 
-        private bool CheckIfEnd()
+        private bool CheckIfEnd(ref bool isVictory, ref int revealedBoxes, int minesCurrentGame)
         {
+            if (revealedBoxes == _board.GetLength(0) * _board.GetLength(1) - minesCurrentGame)
+                isVictory = true;
+            
             if (Console.ForegroundColor == ConsoleColor.Red)
             {
                 Console.ResetColor();
@@ -250,6 +256,7 @@ namespace CommandLineGames
 
         private void RevealBoxValue()
         {
+            bool revealSurroundBoxes = false;
             if (_board[_cursorPosition[0], _cursorPosition[1]] == 0) return;
             if (_board[_cursorPosition[0], _cursorPosition[1]] < 0)
                 _board[_cursorPosition[0], _cursorPosition[1]] *= -1;
@@ -258,13 +265,14 @@ namespace CommandLineGames
             if (_board[_cursorPosition[0], _cursorPosition[1]] == 9)
             {
                 value = "·";
-                ; // here I have to check and reveal the surrounding values
+                revealSurroundBoxes = true;
             }
             else if (_board[_cursorPosition[0], _cursorPosition[1]] == 10) value = "∅";
             else value = Convert.ToString(_board[_cursorPosition[0], _cursorPosition[1]]);
             
             OutDataMinesweeper.PrintBoxValue(value);
             _board[_cursorPosition[0], _cursorPosition[1]] = 0;
+            if (revealSurroundBoxes) RevealSurroundingBoxesIfValue9();
         }
         
         private void SetOrUnsetFlag()
@@ -290,18 +298,83 @@ namespace CommandLineGames
             switch (newDifficulty)
             {
                 case 1:
-                    _mines = 50;
+                    _minesNextGame = 50;
                     break;
                 case 2:
-                    _mines = 100;
+                    _minesNextGame = 100;
                     break;
                 default:
-                    _mines = 150;
+                    _minesNextGame = 150;
                     break;
             }
             
             OutDataMinesweeper.PrintNextGameDifficulty();
             OutDataMinesweeper.ClearDifficultyOptions();
+        }
+
+        private void RevealSurroundingBoxesIfValue9()
+        {
+            int[] initialPosition = {Console.CursorLeft, Console.CursorTop};
+            int[] initialCursorPosition = {_cursorPosition[0], _cursorPosition[1]};
+
+            if (initialCursorPosition[0] > 0)
+            {
+                if (initialCursorPosition[1] > 0)
+                {
+                    Console.SetCursorPosition(initialPosition[0] - 2, initialPosition[1] - 1);
+                    _cursorPosition = new[] {initialCursorPosition[0] - 1, initialCursorPosition[1] - 1};
+                    RevealBoxValue();
+                }
+                
+                Console.SetCursorPosition(initialPosition[0], initialPosition[1] - 1);
+                _cursorPosition = new[] {initialCursorPosition[0] - 1, initialCursorPosition[1]};
+                RevealBoxValue();
+
+                if (initialCursorPosition[1] < _board.GetLength(1) - 1)
+                {
+                    Console.SetCursorPosition(initialPosition[0] + 2 , initialPosition[1] - 1);
+                    _cursorPosition = new[] {initialCursorPosition[0] - 1, initialCursorPosition[1] + 1};
+                    RevealBoxValue();
+                }
+            }
+
+            if (initialCursorPosition[0] < _board.GetLength(0) - 1)
+            {
+                if (initialCursorPosition[1] > 0)
+                {
+                    Console.SetCursorPosition(initialPosition[0] - 2, initialPosition[1] + 1);
+                    _cursorPosition = new[] {initialCursorPosition[0] + 1, initialCursorPosition[1] - 1};
+                    RevealBoxValue();
+                }
+                
+                Console.SetCursorPosition(initialPosition[0], initialPosition[1] + 1);
+                _cursorPosition = new[] {initialCursorPosition[0] + 1, initialCursorPosition[1]};
+                RevealBoxValue();
+
+                if (initialCursorPosition[1] < _board.GetLength(1) - 1)
+                {
+                    Console.SetCursorPosition(initialPosition[0] + 2 , initialPosition[1] + 1);
+                    _cursorPosition = new[] {initialCursorPosition[0] + 1, initialCursorPosition[1] + 1};
+                    RevealBoxValue();
+                }
+            }
+
+            if (initialCursorPosition[1] > 0)
+            {
+                Console.SetCursorPosition(initialPosition[0] - 2, initialPosition[1]);
+                _cursorPosition = new[] {initialCursorPosition[0], initialCursorPosition[1] - 1};
+                RevealBoxValue();
+            }
+
+            if (initialCursorPosition[1] < _board.GetLength(1) - 1)
+            {
+                Console.SetCursorPosition(initialPosition[0] + 2, initialPosition[1]);
+                _cursorPosition = new[] {initialCursorPosition[0], initialCursorPosition[1] + 1};
+                RevealBoxValue();
+            }
+            
+            Console.SetCursorPosition(initialPosition[0], initialPosition[1]);
+            _cursorPosition = new[] {initialCursorPosition[0], initialCursorPosition[1]};
         }
     }
 }

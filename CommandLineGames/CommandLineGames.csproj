@@ -10,7 +10,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\ExternalSources\ExternalSources.csproj" />
+        <ProjectReference Include="..\ExternalSources\ExternalSources.csproj"/>
     </ItemGroup>
 
 </Project>
