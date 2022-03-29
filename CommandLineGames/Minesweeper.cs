@@ -8,13 +8,34 @@ using System;
 
 namespace CommandLineGames
 {
+    /// <summary>
+    /// Class with the methods of the game Minesweeper
+    /// </summary>
     public class Minesweeper
     {
+        /// <summary>
+        /// Integral with the number of mines that will be placed in the next game
+        /// </summary>
         private int _minesNextGame = 100;
+        
+        /// <summary>
+        /// Integral matrix with the dimensions of the board
+        /// </summary>
         private int[,] _board = new int[20, 30];
+        
+        /// <summary>
+        /// Integral matrix with the current cursor position
+        /// </summary>
         private int[] _cursorPosition = {0, 0};
+        
+        /// <summary>
+        /// Integral with the number of boxes revealed
+        /// </summary>
         private int _revealedBoxes;
         
+        /// <summary>
+        /// Method where Minesweeper starts
+        /// </summary>
         internal void MinesweeperMain()
         {
             SetConsoleParametersMinesweeper();
@@ -22,6 +43,9 @@ namespace CommandLineGames
             MinesweeperInitialize();
         }
 
+        /// <summary>
+        /// Method that sets the console parameters for Minesweeper
+        /// </summary>
         private void SetConsoleParametersMinesweeper()
         {
             if (OperatingSystem.IsWindows())
@@ -32,6 +56,9 @@ namespace CommandLineGames
             }
         }
 
+        /// <summary>
+        /// Method where the game initializes and repeats when it ends
+        /// </summary>
         private void MinesweeperInitialize()
         {
             Console.Clear();
@@ -54,6 +81,9 @@ namespace CommandLineGames
             } while (!end);
         }
 
+        /// <summary>
+        /// Method that generates the mines in the board
+        /// </summary>
         private void GenerateNewMinesPositions()
         {
             int minesPlaced = 0;
@@ -77,6 +107,9 @@ namespace CommandLineGames
             } while (minesPlaced < _minesNextGame);
         }
 
+        /// <summary>
+        /// Method that fills the non-mine boxes with the values that correspond to each game
+        /// </summary>
         private void FillBoardWithCorrespondentValues()
         {
             for (int i = 0; i < _board.GetLength(0); i++)
@@ -96,6 +129,11 @@ namespace CommandLineGames
             }
         }
         
+        /// <summary>
+        /// Method with the game loop
+        /// </summary>
+        /// <param name="end">Boolean that indicates if the game has to stop its execution</param>
+        /// <returns>Boolean that indicates if a game ends in a win or a defeat</returns>
         private bool MinesweeperGameLoop(ref bool end)
         {
             Console.CursorVisible = true;
@@ -115,6 +153,10 @@ namespace CommandLineGames
             return isVictory;
         }
 
+        /// <summary>
+        /// Method with the end screen
+        /// </summary>
+        /// <param name="isVictory">Boolean that indicates if a game ends in a win or a defeat</param>
         private void EndScreen(bool isVictory)
         {
             Console.CursorVisible = false;
@@ -133,6 +175,12 @@ namespace CommandLineGames
             Console.CursorVisible = true;
         }
 
+        /// <summary>
+        /// Method that checks if the three top boxes of the current position have mines
+        /// </summary>
+        /// <param name="i">Row position</param>
+        /// <param name="j">Column position</param>
+        /// <returns>Integral with the number of boxes with mines</returns>
         private int CheckTopValues(int i, int j)
         {
             int surroundingMines = 0;
@@ -151,6 +199,12 @@ namespace CommandLineGames
             return surroundingMines;
         }
 
+        /// <summary>
+        /// Method that checks if the three bottom boxes of the current position have mines
+        /// </summary>
+        /// <param name="i">Row position</param>
+        /// <param name="j">Column position</param>
+        /// <returns>Integral with the number of boxes with mines</returns>
         private int CheckBottomValues(int i, int j)
         {
             int surroundingMines = 0;
@@ -169,6 +223,12 @@ namespace CommandLineGames
             return surroundingMines;
         }
 
+        /// <summary>
+        /// Method that checks if the left and right boxes of the current position have mines
+        /// </summary>
+        /// <param name="i">Row position</param>
+        /// <param name="j">Column position</param>
+        /// <returns>Integral with the number of boxes with mines</returns>
         private int CheckLeftAndRight(int i, int j)
         {
             int surroundingMines = 0;
@@ -182,6 +242,11 @@ namespace CommandLineGames
             return surroundingMines;
         }
 
+        /// <summary>
+        /// Method where the input translates in its corresponding action
+        /// </summary>
+        /// <param name="action">Integral with the user's input</param>
+        /// <param name="end">Boolean that indicates if the game has to stop</param>
         private void DoAction(int action, ref bool end)
         {
             switch (action)
@@ -210,6 +275,12 @@ namespace CommandLineGames
             }
         }
 
+        /// <summary>
+        /// Method that tells if the game must end
+        /// </summary>
+        /// <param name="isVictory">Boolean that indicates if a game ends in a win or a defeat</param>
+        /// <param name="minesCurrentGame">Integral with the number of mines in the current game</param>
+        /// <returns>Boolean that indicates if the game has to end</returns>
         private bool CheckIfEnd(ref bool isVictory, int minesCurrentGame)
         {
             if (Console.ForegroundColor == ConsoleColor.Red)
@@ -225,6 +296,10 @@ namespace CommandLineGames
             return false;
         }
 
+        /// <summary>
+        /// Method where the menu actions are managed
+        /// </summary>
+        /// <param name="end">Boolean that indicates if the game has to end</param>
         private void GoMenu(ref bool end)
         {
             int[] position = {Console.CursorLeft, Console.CursorTop};
@@ -249,6 +324,9 @@ namespace CommandLineGames
             Console.CursorVisible = true;
         }
 
+        /// <summary>
+        /// Method that moves the cursor up during the game
+        /// </summary>
         private void MoveCursorUp()
         {
             if (_cursorPosition[0] != 0)
@@ -258,6 +336,9 @@ namespace CommandLineGames
             }
         }
         
+        /// <summary>
+        /// Method that moves the cursor down during the game
+        /// </summary>
         private void MoveCursorDown()
         {
             if (_cursorPosition[0] != _board.GetLength(0) - 1)
@@ -267,6 +348,9 @@ namespace CommandLineGames
             }
         }
         
+        /// <summary>
+        /// Method that moves the cursor right during the game
+        /// </summary>
         private void MoveCursorRight()
         {
             if (_cursorPosition[1] != _board.GetLength(1) - 1)
@@ -276,6 +360,9 @@ namespace CommandLineGames
             }
         }
         
+        /// <summary>
+        /// Method that moves the cursor left during the game
+        /// </summary>
         private void MoveCursorLeft()
         {
             if (_cursorPosition[1] != 0)
@@ -285,6 +372,9 @@ namespace CommandLineGames
             }
         }
 
+        /// <summary>
+        /// Method that reveals the value of the box where the cursor is
+        /// </summary>
         private void RevealBoxValue()
         {
             bool revealSurroundBoxes = false;
@@ -307,6 +397,9 @@ namespace CommandLineGames
             if (revealSurroundBoxes) RevealSurroundingBoxesIfValue9();
         }
         
+        /// <summary>
+        /// Method that sets or unsets a flag
+        /// </summary>
         private void SetOrUnsetFlag()
         {
             switch (_board[_cursorPosition[0], _cursorPosition[1]])
@@ -322,6 +415,9 @@ namespace CommandLineGames
             }
         }
         
+        /// <summary>
+        /// Method where the difficulty setting are managed
+        /// </summary>
         private void ChangeDifficulty()
         {
             OutDataMinesweeper.PrintDifficultyOptions();
@@ -344,6 +440,12 @@ namespace CommandLineGames
             OutDataMinesweeper.ClearDifficultyOptions();
         }
 
+        /// <summary>
+        /// Method that reveals all the locations around a box
+        /// </summary>
+        /// <remarks>
+        /// This method works with RevealBoxValue() in a recursive way to reveal all the positions when multiple value 9(0) boxes are revealed
+        /// </remarks>>
         private void RevealSurroundingBoxesIfValue9()
         {
             int[] initialPosition = {Console.CursorLeft, Console.CursorTop};
@@ -357,6 +459,11 @@ namespace CommandLineGames
             _cursorPosition = new[] {initialCursorPosition[0], initialCursorPosition[1]};
         }
 
+        /// <summary>
+        /// Method that reveals the three top boxes of the current position
+        /// </summary>
+        /// <param name="initialPosition">Int array with the cursor's original position in the board</param>
+        /// <param name="initialCursorPosition">Int array with the cursor's original position in the console</param>
         private void RevealTop(int[] initialPosition, int[] initialCursorPosition)
         {
             if (initialCursorPosition[0] > 0)
@@ -381,6 +488,11 @@ namespace CommandLineGames
             }
         }
 
+        /// <summary>
+        /// Method that reveals the three bottom boxes of the current position
+        /// </summary>
+        /// <param name="initialPosition">Int array with the cursor's original position in the board</param>
+        /// <param name="initialCursorPosition">Int array with the cursor's original position in the console</param>
         private void RevealBottom(int[] initialPosition, int[] initialCursorPosition)
         {
             if (initialCursorPosition[0] < _board.GetLength(0) - 1)
@@ -405,6 +517,11 @@ namespace CommandLineGames
             }
         }
 
+        /// <summary>
+        /// Method that reveals the left and right boxes of the current position
+        /// </summary>
+        /// <param name="initialPosition">Int array with the cursor's original position in the board</param>
+        /// <param name="initialCursorPosition">Int array with the cursor's original position in the console</param>
         private void RevealLeftAndRight(int[] initialPosition, int[] initialCursorPosition)
         {
             if (initialCursorPosition[1] > 0)
