@@ -18,6 +18,7 @@ namespace CommandLineGames
         /// </summary>
         static void Main()
         {
+            Console.Clear();
             Console.CursorVisible = false;
             Console.Title = "Command Line Games by Victor Langa";
             if (OperatingSystem.IsWindows())
